@@ -54,3 +54,5 @@ npm run preview
 석영준 / brinicle4865@naver.com. 전화번호는 공개하지 않습니다.
 
 [구조](Docs/PROJECT_STRUCTURE.md) · [에셋 출처](Docs/ASSET_SOURCES.md) · [콘텐츠 근거 및 운영 기준](Docs/CONTENT_AUDIT.md)
+
+[Vercel 운영 및 앱스토어 연결 URL](Docs/DEPLOYMENT.md)
