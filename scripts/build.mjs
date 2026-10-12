@@ -27,7 +27,8 @@ for (const locale of ['ko', 'en']) {
   if (websitePolicy[locale]) await write(route(locale, 'privacy'), policyPage(context(locale, 'privacy'), websitePolicy[locale]));
 }
 const ctx = context('ko');
-await fs.writeFile(path.join(out, '404.html'), layout(ctx, { title: ctx.t.notFound, description: ctx.t.notFoundText, noindex: true, body: `<section class="container page-hero"><span class="eyebrow">404</span><h1>${ctx.t.notFound}</h1><p>${ctx.t.notFoundText}</p><a class="button primary" href="${site.url}/">${ctx.t.home}</a></section>${contact(ctx)}` }).replaceAll('href="assets/', `href="${site.url}/assets/`).replaceAll('src="assets/', `src="${site.url}/assets/`));
+const notFoundHTML = layout(ctx, { title: ctx.t.notFound, description: ctx.t.notFoundText, noindex: true, body: `<section class="container page-hero"><span class="eyebrow">404</span><h1>${ctx.t.notFound}</h1><p>${ctx.t.notFoundText}</p><a class="button primary" href="${site.url}/">${ctx.t.home}</a></section>${contact(ctx)}` });
+await fs.writeFile(path.join(out, '404.html'), notFoundHTML.replace(/\b(href|src)="([^"]+)"/g, (match, attr, value) => /^(https?:|mailto:|data:|#)/.test(value) ? match : `${attr}="${new URL(value, site.url + '/').href}"`));
 await fs.writeFile(path.join(out, '.nojekyll'), '');
 await fs.writeFile(path.join(out, 'robots.txt'), `User-agent: *\nAllow: /\nSitemap: ${site.url}/sitemap.xml\n`);
 await fs.writeFile(path.join(out, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${routes.map(slug => `<url><loc>${site.url}/${slug}${slug ? '/' : ''}</loc><lastmod>${site.effectiveDate}</lastmod></url>`).join('')}</urlset>\n`);
