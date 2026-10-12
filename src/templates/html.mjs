@@ -44,7 +44,26 @@ export function layout(ctx, { title, description, body, kind = '', noindex = fal
 }
 
 export function homePage(ctx, apps) {
-  return layout(ctx, { title: 'SEOLIN Apps', description: ctx.t.websiteSummary, body: `<section class="container page-hero" id="apps"><span class="eyebrow">SEOLIN APPS</span><h1>SEOLIN Apps</h1><p>${ctx.t.websiteSummary}</p></section>${contact(ctx)}` });
+  const { locale, t, link, asset } = ctx;
+  const ko = locale === 'ko';
+  const cards = apps.map(app => `<article class="app-card"><div class="card-top"><img src="${asset(app.icon)}" alt="" width="64" height="64"><span class="status">${t.release}</span></div><h3>${escape(app.name)}</h3><p class="description">${escape(app[locale].description)}</p><p class="platform">${escape(app[locale].platform)}</p><div class="card-links"><a class="button" href="${link(route(locale, `${app.slug}/support`))}">${t.support}<span aria-hidden="true">↗</span></a><a class="text-link" href="${link(route(locale, `${app.slug}/privacy`))}">${t.privacy}<span aria-hidden="true">↗</span></a></div></article>`).join('');
+  const principles = ko ? [
+    ['기기 안에서 완성하는 작업', '사진과 문서, 음악을 처리하는 앱 기능은 기기 안에서 실행됩니다. 개발자 서버에 작업 파일을 업로드하지 않습니다.'],
+    ['앱마다 필요한 안내를 정확하게', '첫 사용 순서부터 저장과 백업까지. 앱별 사용 안내와 자주 묻는 질문을 확인하세요.'],
+    ['자료를 보관하는 방법까지', '무엇을 기기에 저장하고 어떻게 지울 수 있는지, 각 앱의 개인정보처리방침에서 확인할 수 있습니다.'],
+  ] : [
+    ['Your work, on your device', 'App features process your photos, documents and media on the device. Working files are not uploaded to a developer server.'],
+    ['Help for each app', 'From your first steps to exporting and backups. Find practical guides and answers for the app you use.'],
+    ['Know how your data is kept', 'Each app’s privacy policy explains what is stored locally and how you can remove it.'],
+  ];
+  return layout(ctx, { title: ko ? '수련의 시간을 더 단단하게' : 'More room for what matters', description: t.websiteSummary, kind: 'home-page', body: `
+  <section class="brand-hero" aria-labelledby="home-title"><div class="container"><div class="hero-kicker"><span>TOOLS MADE AT SEOLIN</span><span>TAEKWONDO, EVERY DAY.</span></div>
+    <div class="vector-wordmark" aria-hidden="true"><span class="wordmark-fallback">SEOLIN</span><canvas id="wordmark-canvas"></canvas><span class="vector-caption">APPS & CREATIVE TOOLS</span></div>
+    <div class="brand-hero-bottom"><div><h1 id="home-title">${ko ? '수련의 시간에,<br>더 집중할 수 있도록.' : 'More room<br>for what matters.'}</h1><p>${ko ? '사진 준비부터 콘텐츠 제작, 음악줄넘기 연습까지.<br>서린의 현장에서 만든 도구를 만나보세요.' : 'Photo preparation, creative covers and jump-rope practice.<br>Tools made from everyday life at SEOLIN.'}</p></div><a class="button hero-cta" href="#apps">${t.apps}<span aria-hidden="true">↓</span></a></div>
+  </div></section>
+  <section class="app-section" id="apps" aria-labelledby="apps-title"><div class="container"><div class="section-intro"><div><span class="eyebrow">OUR APPS</span><h2 id="apps-title">${ko ? '필요한 순간에, 서린 앱.' : 'A SEOLIN app for your next step.'}</h2></div><p>${ko ? '앱을 선택하면 사용 방법과 지원,<br>개인정보 안내를 확인할 수 있어요.' : 'Choose an app for getting started,<br>support and privacy information.'}</p></div><div class="app-cards">${cards}</div></div></section>
+  <section class="container principles" aria-labelledby="principles-title"><span class="eyebrow">THOUGHTFULLY MADE</span><h2 id="principles-title">${ko ? '익숙한 일상을, 조금 더 편하게.' : 'Make everyday tasks a little easier.'}</h2><div class="principle-grid">${principles.map(([title, text], i) => `<article><span aria-hidden="true">0${i + 1}</span><h3>${title}</h3><p>${text}</p></article>`).join('')}</div></section>${contact(ctx)}
+  <script src="${asset('wordmark.js')}" defer></script>` });
 }
 
 export function supportPage(ctx, app) {
