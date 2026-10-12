@@ -1,0 +1,13 @@
+{
+  "name": "seolin-apps-site",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "SEOLIN Apps 공식 지원 및 개인정보처리방침 사이트",
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "check": "node scripts/check.mjs",
+    "preview": "node scripts/serve.mjs"
+  }
+}
