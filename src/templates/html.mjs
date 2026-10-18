@@ -43,10 +43,15 @@ export function layout(ctx, { title, description, body, kind = '', noindex = fal
 </body></html>`;
 }
 
+export function appStoreLink(ctx, app) {
+  const label = `${app.name}: ${ctx.t.download} (${ctx.t.newTab})`;
+  return `<a class="button primary download-button" data-app-store="${escape(app.slug)}" href="${escape(app.appStoreUrl)}" target="_blank" rel="noopener noreferrer" aria-label="${escape(label)}"><span>${ctx.t.download}</span><span aria-hidden="true">↗</span></a>`;
+}
+
 export function homePage(ctx, apps) {
   const { locale, t, link, asset } = ctx;
   const ko = locale === 'ko';
-  const cards = apps.map(app => `<article class="app-card"><div class="card-top"><img src="${asset(app.icon)}" alt="" width="64" height="64"><span class="status">${t.release}</span></div><h3>${escape(app.name)}</h3><p class="description">${escape(app[locale].description)}</p><p class="platform">${escape(app[locale].platform)}</p><div class="card-links"><a class="button" href="${link(route(locale, `${app.slug}/support`))}">${t.support}<span aria-hidden="true">↗</span></a><a class="text-link" href="${link(route(locale, `${app.slug}/privacy`))}">${t.privacy}<span aria-hidden="true">↗</span></a></div></article>`).join('');
+  const cards = apps.map(app => `<article class="app-card"><div class="card-top"><img src="${asset(app.icon)}" alt="" width="64" height="64"><span class="status is-released">${t.release}</span></div><h3>${escape(app.name)}</h3><p class="description">${escape(app[locale].description)}</p><p class="platform">${escape(app[locale].platform)}</p>${app[locale].availabilityNote ? `<p class="availability-note">${escape(app[locale].availabilityNote)}</p>` : ''}<div class="card-links">${appStoreLink(ctx, app)}<a class="button" href="${link(route(locale, `${app.slug}/support`))}">${t.support}<span aria-hidden="true">↗</span></a><a class="text-link" href="${link(route(locale, `${app.slug}/privacy`))}">${t.privacy}<span aria-hidden="true">↗</span></a></div></article>`).join('');
   const principles = ko ? [
     ['기기 안에서 완성하는 작업', '사진과 문서, 음악을 처리하는 앱 기능은 기기 안에서 실행됩니다. 개발자 서버에 작업 파일을 업로드하지 않습니다.'],
     ['앱마다 필요한 안내를 정확하게', '첫 사용 순서부터 저장과 백업까지. 앱별 사용 안내와 자주 묻는 질문을 확인하세요.'],
@@ -61,7 +66,7 @@ export function homePage(ctx, apps) {
     <div class="vector-wordmark" aria-hidden="true"><span class="wordmark-fallback">SEOLIN</span><canvas id="wordmark-canvas"></canvas><span class="vector-caption">APPS & CREATIVE TOOLS</span></div>
     <div class="brand-hero-bottom"><div><h1 id="home-title">${ko ? '수련의 시간에,<br>더 집중할 수 있도록.' : 'More room<br>for what matters.'}</h1><p>${ko ? '사진 준비부터 콘텐츠 제작, 음악줄넘기 연습까지.<br>서린의 현장에서 만든 도구를 만나보세요.' : 'Photo preparation, creative covers and jump-rope practice.<br>Tools made from everyday life at SEOLIN.'}</p></div><a class="button hero-cta" href="#apps">${t.apps}<span aria-hidden="true">↓</span></a></div>
   </div></section>
-  <section class="app-section" id="apps" aria-labelledby="apps-title"><div class="container"><div class="section-intro"><div><span class="eyebrow">OUR APPS</span><h2 id="apps-title">${ko ? '필요한 순간에, 서린 앱.' : 'A SEOLIN app for your next step.'}</h2></div><p>${ko ? '앱을 선택하면 사용 방법과 지원,<br>개인정보 안내를 확인할 수 있어요.' : 'Choose an app for getting started,<br>support and privacy information.'}</p></div><div class="app-cards">${cards}</div></div></section>
+  <section class="app-section" id="apps" aria-labelledby="apps-title"><div class="container"><div class="section-intro"><div><span class="eyebrow">OUR APPS</span><h2 id="apps-title">${ko ? '필요한 순간에, 서린 앱.' : 'A SEOLIN app for your next step.'}</h2></div><p>${ko ? '앱을 다운로드하고 사용 방법과 지원,<br>개인정보 안내를 확인하세요.' : 'Download an app and find getting-started guides,<br>support and privacy information.'}</p></div><div class="app-cards">${cards}</div></div></section>
   <section class="container principles" aria-labelledby="principles-title"><span class="eyebrow">THOUGHTFULLY MADE</span><h2 id="principles-title">${ko ? '익숙한 일상을, 조금 더 편하게.' : 'Make everyday tasks a little easier.'}</h2><div class="principle-grid">${principles.map(([title, text], i) => `<article><span aria-hidden="true">0${i + 1}</span><h3>${title}</h3><p>${text}</p></article>`).join('')}</div></section>${contact(ctx)}
   <script src="${asset('wordmark.js')}" defer></script>` });
 }
@@ -73,7 +78,7 @@ export function supportPage(ctx, app) {
   const steps = copy.steps.map(([title, text], i) => `<li><span class="step-number" aria-hidden="true">${String(i + 1).padStart(2, '0')}</span><div><h3>${escape(title)}</h3><p>${escape(text)}</p></div></li>`).join('');
   const faqs = copy.faq.map(([q, a]) => `<details><summary>${escape(q)}<span aria-hidden="true">+</span></summary><div><p>${escape(a)}</p></div></details>`).join('');
   return layout(ctx, { title: `${app.name} · ${t.support}`, description: copy.description, kind: 'support-page', body: `
-    <section class="container page-hero"><a class="back-link" href="${link(route(locale))}">← ${t.back}</a><div class="app-heading"><img class="app-icon" src="${asset(app.icon)}" width="88" height="88" alt=""><div><span class="eyebrow">HELP & SUPPORT</span><h1>${escape(app.name)}</h1><p class="platform">${escape(copy.platform)}</p></div></div><p class="hero-description">${escape(copy.description)}</p><a class="text-link" href="${link(route(locale, `${app.slug}/privacy`))}">${t.privacy}<span aria-hidden="true">↗</span></a></section>
+    <section class="container page-hero"><a class="back-link" href="${link(route(locale))}">← ${t.back}</a><div class="app-heading"><img class="app-icon" src="${asset(app.icon)}" width="88" height="88" alt=""><div><span class="eyebrow">HELP & SUPPORT</span><h1>${escape(app.name)}</h1><p class="platform">${escape(copy.platform)}</p>${copy.availabilityNote ? `<p class="availability-note">${escape(copy.availabilityNote)}</p>` : ''}</div></div><p class="hero-description">${escape(copy.description)}</p><div class="support-actions">${appStoreLink(ctx, app)}<a class="text-link" href="${link(route(locale, `${app.slug}/privacy`))}">${t.privacy}<span aria-hidden="true">↗</span></a></div></section>
     <div class="container support-content"><ul class="feature-grid">${features}</ul><section class="section-block" aria-labelledby="steps-title"><div class="section-heading"><span class="eyebrow">QUICK START</span><h2 id="steps-title">${t.steps}</h2></div><ol class="steps">${steps}</ol></section>
     <aside class="note"><h2>${t.tips}</h2><p>${escape(copy.note)}</p></aside><section class="section-block" aria-labelledby="faq-title"><div class="section-heading"><span class="eyebrow">FAQ</span><h2 id="faq-title">${t.faq}</h2></div><div class="faq-list">${faqs}</div></section></div>${contact(ctx, app.name)}` });
 }

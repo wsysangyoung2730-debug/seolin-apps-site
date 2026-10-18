@@ -56,3 +56,15 @@ npm run preview
 [구조](Docs/PROJECT_STRUCTURE.md) · [에셋 출처](Docs/ASSET_SOURCES.md) · [콘텐츠 근거 및 운영 기준](Docs/CONTENT_AUDIT.md)
 
 [Vercel 운영 및 앱스토어 연결 URL](Docs/DEPLOYMENT.md)
+
+## App Store 다운로드
+
+세 앱 모두 출시 완료 상태로 안내합니다. JumpRope Player의 Mac 버전은 출시 예정으로 별도 표시합니다. 한국어·영어 홈의 앱 카드와 각 앱 지원 페이지에서 App Store를 새 탭으로 엽니다.
+
+| 앱 | 다운로드 |
+| --- | --- |
+| TCON Maker | https://apps.apple.com/kr/app/tcon-maker-by-seolin/id6822064133 |
+| Blog Cover Maker | https://apps.apple.com/kr/app/blog-cover-maker-by-seolin/id6822050062 |
+| JumpRope Player | https://apps.apple.com/kr/app/jumprope-player-by-seolin/id6822076754 |
+
+스토어 링크는 `src/content/apps.mjs`의 `appStoreUrl`에서 관리합니다. JumpRope Player의 Mac 버전이 출시되면 한국어·영어 `platform`과 `availabilityNote`도 함께 갱신합니다.
