@@ -1,6 +1,6 @@
 export const apps = [
   {
-    slug: 'tcon-maker', name: 'TCON Maker', icon: 'tcon-maker.png',
+    slug: 'tcon-maker', appStoreUrl: 'https://apps.apple.com/kr/app/tcon-maker-by-seolin/id6822064133', name: 'TCON Maker', icon: 'tcon-maker.png',
     ko: {
       platform: 'iPhone · iPad / iOS 17 이상',
       description: '심사 사진을 고르고, 규격에 맞추고, 폴더별로 정리하세요. 한 장부터 여러 장까지 기기 안에서 준비합니다.',
@@ -47,7 +47,7 @@ export const apps = [
     },
   },
   {
-    slug: 'blog-cover-maker', name: 'Blog Cover Maker', icon: 'blog-cover-maker.png',
+    slug: 'blog-cover-maker', appStoreUrl: 'https://apps.apple.com/kr/app/blog-cover-maker-by-seolin/id6822050062', name: 'Blog Cover Maker', icon: 'blog-cover-maker.png',
     ko: {
       platform: 'Mac / macOS 14 이상 · iPad / iPadOS 17 이상',
       description: '사진과 문구로 블로그 표지를 완성하세요. 디자인을 고르고 레이어를 다듬은 뒤, 편집 문서와 게시용 이미지를 각각 저장합니다.',
@@ -92,9 +92,10 @@ export const apps = [
     },
   },
   {
-    slug: 'jumprope-player', name: 'JumpRope Player', icon: 'jumprope-player.png',
+    slug: 'jumprope-player', appStoreUrl: 'https://apps.apple.com/kr/app/jumprope-player-by-seolin/id6822076754', name: 'JumpRope Player', icon: 'jumprope-player.png',
     ko: {
-      platform: 'Mac / macOS 14 이상 · iPad / iPadOS 17 이상',
+      platform: 'iPad / iPadOS 17 이상',
+      availabilityNote: 'Mac 버전은 출시 예정입니다.',
       description: '음악과 동작의 흐름을 맞춰 줄넘기 수업을 준비하세요. 순서표와 타이밍을 편집하고 필요한 구간을 반복해서 연습합니다.',
       features: [['음악·영상과 순서표', '선택한 파일을 재생하면서 동작 순서표와 자동 스크롤을 함께 봅니다.'], ['타이밍 편집', '재생 중 싱크를 기록하고 준비 카운트와 구간 반복을 설정합니다.'], ['목록과 백업', '미디어 연결 정보, 순서표와 설정을 기기에 보관하고 JSON으로 백업합니다.']],
       steps: [
@@ -115,7 +116,8 @@ export const apps = [
       ],
     },
     en: {
-      platform: 'Mac / macOS 14+ · iPad / iPadOS 17+',
+      platform: 'iPad / iPadOS 17+',
+      availabilityNote: 'The Mac version is coming soon.',
       description: 'Prepare jump-rope lessons around music and movement. Edit routines and timing, then loop the sections you want to practice.',
       features: [['Media and routines', 'Play selected local files alongside a routine and auto-scrolling instructions.'], ['Timing tools', 'Mark sync points during playback and set preparation counts and loop ranges.'], ['Library and backups', 'Keep file references, routines and settings locally, with JSON backup export.']],
       steps: [

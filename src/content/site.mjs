@@ -17,7 +17,7 @@ export const ui = {
     contactNote: '수련생의 얼굴 사진이나 개인정보가 포함된 원본 파일은 보내지 마세요. 화면을 첨부할 때는 개인정보를 가려 주세요.',
     manager: '지원 및 개인정보 문의 담당자', mail: '이메일로 문의하기',
     back: '전체 앱 보기', sitePrivacy: '웹사이트 개인정보 안내', top: '맨 위로',
-    release: '출시 준비 중', websiteSummary: '서린 앱의 사용 안내와 개인정보처리방침을 한곳에서 확인하세요.',
+    release: '출시 완료', download: 'App Store에서 다운로드', newTab: '새 탭에서 열림', websiteSummary: '서린 앱의 사용 안내와 개인정보처리방침을 한곳에서 확인하세요.',
     notFound: '페이지를 찾을 수 없어요', notFoundText: '주소가 변경되었거나 존재하지 않는 페이지입니다. 홈에서 앱을 다시 선택해 주세요.',
   },
   en: {
@@ -30,7 +30,7 @@ export const ui = {
     contactNote: 'Please do not send original files containing students’ faces or personal information. Redact personal information from any screenshots.',
     manager: 'Support & privacy contact', mail: 'Contact by email',
     back: 'View all apps', sitePrivacy: 'Website privacy notice', top: 'Back to top',
-    release: 'Preparing for release', websiteSummary: 'Help, support and privacy information for apps made by SEOLIN.',
+    release: 'Released', download: 'Download on the App Store', newTab: 'opens in a new tab', websiteSummary: 'Help, support and privacy information for apps made by SEOLIN.',
     notFound: 'Page not found', notFoundText: 'This page may have moved or the address may be incorrect. Choose an app from the home page.',
   },
 };
